@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/static/style.css">
+    </head>
+    <body>
+        <div class ='topheader'>
+            <h3>CodingDojo Wall</h3>
+            <h4>Welcome {{user_name}}</h4>
+            <a class = "right" href="/logout">log off</a>
+        </div>
+        <div class = 'main'>
+            <h3>Post a message</h3>
+            <form action="/post_message" method = 'post'>
+                <textarea class = "alignright" name="message" id="" cols="170" rows="5"></textarea>
+                <br>
+                <input class = "right post" type="submit" value = "Post a message">
+            </form>
+            {% for message in Messages %}
+                <h6>{{message['name']}} - {{message['date'].strftime('%B %d %Y')}}</h6>
+                <p class = "message">{{message['mes']}}
+                {% if session.user_id==message['user_id'] %}
+                    <a href="/delete_message/{{message['mes_id']}}">Delete message</a></p>
+                {%endif%}
+                <h6 class = "comment">Post a comment </h6>
+                <form action="/post_comment" method = 'post'>
+                    <textarea  class = "comment" name="comment" id="" cols="165" rows="5"></textarea>
+                    <input  class = "right post green" type="submit" value = "Post a comment">
+                    <input type="hidden" name = "mes_id" value = "{{message['mes_id']}}">
+                </form> 
+                {% for comment in Comments %}
+                    {% if  message['mes_id'] == comment['mes_id']%}
+                        <h6 class = "comment">{{comment['name']}} - {{comment['date'].strftime('%B %d %Y')}}</h6>
+                        <p class = "comment">{{comment['com']}}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+            </div>
+    </body>
+</html>

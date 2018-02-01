@@ -1,0 +1,36 @@
+<html>
+        <head>
+          <link rel="stylesheet" href="/static/style.css">
+           <title>Registration Form</title>
+        </head>
+        <body>
+          <fieldset class = "wrapper">
+            <legend>Registration</legend>
+            <form action="/registration" method="post">
+              <label>Email: <input type='text' name='email'></label>
+              <label>First Name: <input type='text' name='first_name'></label>
+              <label>Last Name: <input type='text' name='last_name'></label>
+              <label>Password: <input type='password' name='password'></label>
+              <label>Confirm password: <input type='password' name='confirm_password'></label>
+              <input type='submit' value='Submit'>
+            </form>
+          </fieldset>
+          <fieldset class = "wrapper">
+            <legend>Login</legend>
+            <form action="/login" method = 'post'>
+              <label>Email: <input type="text" name = "email"></label>
+              <label>Password: <input type="password" name = "password"></label>
+              <input type="submit" value = "Go!">
+            </form>
+          </fieldset>
+          {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="red">
+            {% for category, message in messages %}
+              <li class = "{{category}}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+          {% endwith %}
+        </body>
+    </html>
